@@ -8,19 +8,19 @@
       <div class="panel-body" data-validator-form>
         <div class="form-group">
           <label class="control-label">用户名</label>
-          <input v-validator:input.required="{ regex: /^[a-zA-Z]+\w*\s?\w*$/, error: '用户名要求以字母开头的单词字符' }" type="text" class="form-control" placeholder="请填写用户名">
+          <input v-model.trim="username" v-validator:input.required="{ regex: /^[a-zA-Z]+\w*\s?\w*$/, error: '用户名要求以字母开头的单词字符' }" type="text" class="form-control" placeholder="请填写用户名">
         </div>
         <div class="form-group">
           <label class="control-label">密码</label>
-          <input v-validator.required="{ regex: /^\w{6,16}$/, error: '密码要求 6 ~ 16 个单词字符' }" type="password" class="form-control" placeholder="请填写密码">
+          <input v-model.trim="password" v-validator.required="{ regex: /^\w{6,16}$/, error: '密码要求 6 ~ 16 个单词字符' }" type="password" class="form-control" placeholder="请填写密码">
         </div>
         <div class="form-group">
           <label class="control-label">确认密码</label>
-          <input v-validator.required="{ target: '#password' }" type="password" class="form-control" placeholder="请填写确认密码">
+          <input v-model.trim="cpassword" v-validator.required="{ target: '#password' }" type="password" class="form-control" placeholder="请填写确认密码">
         </div>
         <div class="form-group">
           <label class="control-label">图片验证码</label>
-          <input  v-validator.required="{ title: '图片验证码' }" type="text" class="form-control" placeholder="请填写验证码">
+          <input v-model.trim="captcha"  v-validator.required="{ title: '图片验证码' }" type="text" class="form-control" placeholder="请填写验证码">
         </div>
         <div class="thumbnail" title="点击图片重新获取验证码" @click="getCaptcha">
           <div class="captcha vcenter" v-html="captchaTpl"></div>
@@ -36,11 +36,16 @@
 </template>
 <script>
 import createCaptcha from '@/utils/createCaptcha'
+import ls from '@/utils/localStorage'
   export default {
     name: 'Regitster',
     data(){
       return {
-        captchaTpl :'' //验证码模板
+        captchaTpl :'', //验证码模板,
+        username: '', // 用户名
+        password: '', // 密码
+        cpassword: '', // 确认密码
+        captcha: '' //验证码
       }
     },
     created(){
@@ -51,6 +56,42 @@ import createCaptcha from '@/utils/createCaptcha'
         const {tpl,captcha} = createCaptcha()
         this.captchaTpl = tpl
         this.localCaptcha = captcha
+      },
+      Regitster(e){
+        this.$nextTick(()=>{
+          const target = e.target.type === 'submit' ? e.target : e.target.parentElement
+          if(target.canSubmit){
+            this.submit()
+          }
+        })
+      },
+      submit(){
+        if(this.captcha.toUpperCase() !== this.localStorage){
+          alert('验证码不正确')
+          this.getCaptcha()
+        }else {
+          const user = {
+            name: this.username,
+            password: this.password,
+            avatar: `https://api.adorable.io/avatars/200/${this.username}.png`
+          }
+          const localUser = ls.getItem('user')
+          if(localUser){
+            if(localUser.name === user.name){
+              alert('用户名已存在')
+            }else{
+              this.login(user)
+            }
+          } else {
+            this.login(user)
+          }
+        }
+      },
+      //登录
+      login(user){
+         // 保存用户信息
+        ls.setItem('user',user)
+        alert('注册成功')
       }
     }
   }
