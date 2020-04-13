@@ -7,6 +7,7 @@ import App from './App'
 //引入 路由
 import router from './router'
 import './directives'
+import './components'
 
 // 设置 false 以阻止 Vue 在启动时生成生产提示
 Vue.config.productionTip = false
