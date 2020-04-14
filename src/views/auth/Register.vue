@@ -72,8 +72,6 @@ import ls from '@/utils/localStorage'
         })
       },
       submit(){
-        console.log(this.captcha.toUpperCase())
-        console.log(this.localCaptcha)
         if(this.captcha.toUpperCase() !== this.localCaptcha){
           this.showMsg('验证码不正确')
          this.getCaptcha()
@@ -83,7 +81,8 @@ import ls from '@/utils/localStorage'
             password: this.password,
             avatar: `https://api.adorable.io/avatars/200/${this.username}.png`
           }
-          const localUser = ls.getItem('user')
+          //const localUser = ls.getItem('user')
+          const localUser = this.$store.state.user
           if(localUser){
             if(localUser.name === user.name){
               this.showMsg('用户名已存在')
@@ -98,7 +97,8 @@ import ls from '@/utils/localStorage'
       //登录
       login(user){
          // 保存用户信息
-        ls.setItem('user',user)
+        //ls.setItem('user',user)
+        this.$store.dispatch('login', user)
         this.showMsg('注册成功')
       },
       showMsg(msg,type = 'warning'){
