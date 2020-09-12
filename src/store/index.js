@@ -16,9 +16,9 @@ const mutations = {
     ls.setItem('user', user)
   },
   //添加 UPDATE_AUTH 来更改当前用户的登录状态
-  UPDATE_AUTH(state,user){
-    state.auth = user
-    ls.setItem('user',auth)
+  UPDATE_AUTH(state,auth){
+    state.auth = auth
+    ls.setItem('auth',auth)
   }
 }
 
@@ -31,7 +31,7 @@ const actions = {
   },
   logout({commit}){
     commit('UPDATE_AUTH',false)
-    router.push({name: 'Home',params: {logout:true}})
+    router.push({name: 'Home',params: {logout: true}})
   }
 }
 

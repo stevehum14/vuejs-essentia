@@ -11,7 +11,7 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-<!--          编辑资料-->
+          <!--          编辑资料-->
           <li>
             <router-link to="/users/1/edit">
               编辑资料
@@ -22,9 +22,9 @@
       </li>
     </ul>
     <div v-else class="nav navbar-nav github-login">
-     <!--  <a href="#" class="btn btn-default login-btn">
-        <i class="fa fa-user"></i> 登录
-      </a> -->
+      <!--  <a href="#" class="btn btn-default login-btn">
+         <i class="fa fa-user"></i> 登录
+       </a> -->
       <router-link to="/auth/login" class="btn btn-default login-btn">
         <i class="fa fa-user"></i> 登录
       </router-link>
@@ -36,29 +36,33 @@
 
 </template>
 <script>
-import { mapState } from 'vuex'
+  import {mapState} from 'vuex'
+
   export default {
-    name:'TheEntry',
-    computed:{
+    name: 'TheEntry',
+    computed: {
       //使用对象展开运算符，将 mapState 对象混入到计算属性之中
       ...mapState([
         // 映射 this.auth 为 store.state.auth
         'auth',
         // 映射 this.user 为 store.state.user
         'user'
-        ])
+      ])
     },
-     // 添加 methods 选项，并添加 logout 方法
-    logout() {
-  this.$swal({
-    text: '你确定要退出吗?',
-    confirmButtonText: '退出'
-  }).then((res) => {
-    if (res.value) {
-      this.$store.dispatch('logout')
-    }
-  })
-}  }
+    // 添加 methods 选项，并添加 logout 方法
+    methods:{
+      logout() {
+        this.$swal({
+          text: '你确定要退出吗?',
+          confirmButtonText: '退出'
+        }).then((res) => {
+          if (res.value) {
+            this.$store.dispatch('logout')
+          }
+        })
+      }
+    },
+  }
 </script>
 <style scoped>
 </style>
