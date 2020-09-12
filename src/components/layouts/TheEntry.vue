@@ -11,6 +11,12 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
+<!--          编辑资料-->
+          <li>
+            <router-link to="/users/1/edit">
+              编辑资料
+            </router-link>
+          </li>
           <li><a href="javascript:;" @click="logout"><i class="fa fa-sign-out text-md"></i>退出</a></li>
         </ul>
       </li>
@@ -34,8 +40,11 @@ import { mapState } from 'vuex'
   export default {
     name:'TheEntry',
     computed:{
+      //使用对象展开运算符，将 mapState 对象混入到计算属性之中
       ...mapState([
+        // 映射 this.auth 为 store.state.auth
         'auth',
+        // 映射 this.user 为 store.state.user
         'user'
         ])
     },
