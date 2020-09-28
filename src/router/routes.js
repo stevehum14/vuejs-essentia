@@ -18,9 +18,25 @@ export default [
   name: 'Login',
   component: ()=>import('@/views/auth/Login')
 },
+  //编辑资料路由
 {
   path: '/users/1/edit',
-  name: 'EditUsers',
-  component: ()=>import('@/views/users/Edit.vue')
+  component: ()=>import('@/views/users/Edit.vue'),
+  children:[
+    {
+      path:'',
+      name:'EditProfile',
+      // auth 为 true，标识当前路由需要登录才能访问
+      component:()=>import('@/views/users/Profile.vue'),
+      meta:{auth:true}
+    },
+    //EditAvatar
+    {
+      path:'/users/1/edit_avatar',
+      name:'EditAvatar',
+      component:()=>import('@/views/users/Avatar.vue'),
+      meta:{auth:true}
+    }
+  ]
 }
 ]

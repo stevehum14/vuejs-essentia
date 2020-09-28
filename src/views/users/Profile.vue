@@ -64,9 +64,47 @@
     name: 'EditProfile',
     data(){
       return {
-        username: '',
+        username: '', //用户名
+        sex: '',//性别
+        hobbies:[],//兴趣
+        introduction:'' //个人简介
+      }
+    },
+    // 在实例创建完成后，初始化表单值
+    created() {
+      const user = this.$store.state.user
 
+      if(user && typeof user === 'object'){
+        // 将仓库的个人信息赋值给对应的变量
+        const {name,sex,hobbies,introduction} = user
+        // 设置用户名初始值
+        this.username = name
+        // 设置性别初始值，单选选择框应该有个默认初始值
+        this.sex = sex || this.sex
+        // 设置兴趣初始值，多个复选框应该有个默认初始值
+        this.hobbies = hobbies || this.hobbies
+        // 设置个人简介初始值
+        this.introduction = introduction
+      }
+    },
+    methods:{
+      // 更新个人信息
+      updateProfile(e){
+        setTimeout(()=>{
+          // 表单验证通过时
+          if(e.target.canSubmit){
+            // 分发 updateUser 事件以更新个人信息
+            this.$store.dispatch('updateUser',{
+              name:this.username,
+              sex:this.sex,
+              hobbies:this.hobbies,
+              introduction:this.introduction
+            })
+           this.$message.show('修改成功')
+          }
+        })
       }
     }
   }
 </script>
+<style scoped></style>
