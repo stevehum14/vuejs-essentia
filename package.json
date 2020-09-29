@@ -13,6 +13,8 @@
     "ajv": "^6.12.0",
     "bootstrap-sass": "^3.4.1",
     "font-awesome": "^4.7.0",
+    "highlight.js": "^10.2.0",
+    "simplemde": "^1.11.2",
     "sweetalert2": "^7.15.1",
     "vue": "^2.5.2",
     "vue-router": "^3.1.6",

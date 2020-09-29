@@ -40,4 +40,7 @@ $fa-font-path: "~font-awesome/fonts/";
 
 @import "./styles/main";
 @import "./styles/extra";
+@import '../node_modules/simplemde/dist/simplemde.min.css';
+@import '../node_modules/highlight.js/styles/paraiso-dark.css';
+@import '../node_modules/highlight.js/styles/paraiso-dark.css';
 </style>
