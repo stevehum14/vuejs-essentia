@@ -57,9 +57,24 @@ const actions = {
   },
   // 使用对象展开运算符混入 moreActions
   ...moreActions
+  /*const actions = Object.assign(actions,moreActions)*/
+}
+//添加getters
+const getters = {
+  getArticleById: (state) =>(id)=>{
+    let articles = state.articles
+    if (Array.isArray(articles)) {
+      articles = articles.filter(article => parseInt(id) === parseInt(article.articleId))
+      return articles.length ? articles[0] : null
+    } else {
+      return null
+    }
+  }
 }
 
 const store = new Vuex.Store({
+  //注册getters
+  getters,
   state,
   mutations,
   actions

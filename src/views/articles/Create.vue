@@ -7,7 +7,7 @@
           <hr>
           <div data-validator-form>
             <div class="form-group">
-              <input v-validator.required="{title:'标题'}" type="text" class="form-control" placeholder="请填写标题" @input="saveTitle">
+              <input v-model.trim="title" v-validator.required="{title:'标题'}" type="text" class="form-control" placeholder="请填写标题" @input="saveTitle">
             </div>
             <div class="form-group">
               <textarea id="editor"></textarea>
@@ -101,7 +101,7 @@
             content
           }
           // 在控制台输出当前文章
-          // console.log(article)
+          console.log(article)
           // 为 => 分发 post 事件，并附带参数 { article }
           this.$store.dispatch('post', { article })
           // 清除数据
