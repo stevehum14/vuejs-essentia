@@ -48,7 +48,7 @@ import TheEntry from '@/components/layouts/TheEntry'
       }
     },
     beforeCreate(){
-      this.uploadsUrl = 'https://vuejscaff.com/uploads/'
+      this.uploadsUrl = 'http://vuejscaff.com/uploads/'
     },
     methods:{
       changeNavIndex(index){
